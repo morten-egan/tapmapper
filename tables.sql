@@ -5,3 +5,5 @@ create table job_mapper (
   , use_date          date
   , status            number
 );
+
+create index job_mapper_upd_scan_idx on job_mapper(para_block, entity_code);

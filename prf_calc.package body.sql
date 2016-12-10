@@ -66,6 +66,7 @@ as
         l_ret_var.para_block := l_work_rec.para_block;
         -- This is where we should do the calculation
         -- <fill in procedure call here>
+        prf_work(l_work_rec.tp_id, l_work_rec.entity_code, l_work_rec.use_date);
         -- Once done update processed.
         l_ret_var.processed := l_ret_var.processed + 1;
       elsif l_ret_var.para_block <> l_work_rec.para_block then
@@ -79,16 +80,23 @@ as
 
         -- Do calculation for the current row
         -- <fill in procedure call here>
+        prf_work(l_work_rec.tp_id, l_work_rec.entity_code, l_work_rec.use_date);
         -- Once done update processed.
         l_ret_var.processed := 1;
       else
         -- We have new row in existing para_block
         -- Do calculation for the current row
         -- <fill in procedure call here>
+        prf_work(l_work_rec.tp_id, l_work_rec.entity_code, l_work_rec.use_date);
         -- Once done update processed.
         l_ret_var.processed := l_ret_var.processed + 1;
       end if;
     end loop;
+
+    if l_ret_var.processed <> 0 then
+      l_ret_var.status := 1;
+      pipe row(l_ret_var);
+    end if;
 
     dbms_application_info.set_action(null);
 
