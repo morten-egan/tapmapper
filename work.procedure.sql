@@ -13,6 +13,8 @@ begin
   dbms_application_info.set_action('prf_work');
 
   l_xcount := 1 + 1 + 1 * 2;
+  l_xcount := mod(l_xcount, random_ninja.core_random.r_natural(3,7));
+  l_xcount := sqrt(l_xcount);
 
   dbms_application_info.set_action(null);
 
